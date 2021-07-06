@@ -1,38 +1,31 @@
-import {Card} from './showcase/cards/index'
 import styled from "styled-components"
-import {Showcase} from './showcase/styles'
+import {Showcase} from '../../components/this-project/showcase/showcase'
+import { ShowcaseItem as Item} from '../../components/this-project/showcase/item'
 import { database} from '../../services/firebase'
 import React,{useEffect, useState} from "react";
 import Spacing from '../../components/styleguide/atoms/spacing';
-const spacing = new Spacing(7,'16px','10vw')     
+
+const spacing = new Spacing(7,'16px','10vw')
+ 
 const Container = styled.div`
     display:flex;
     align-items:stretch;
     height:100vh;
-    padding:0 ${spacing.margin};
-    margin-top: 48px;
-
-    
+    margin-top: 48px;  
 `
 
 export const Home = ()=>{
     const [documents, setDocuments] = useState([]);
     useEffect(() => {
-        database.collection('pets').get().then((snapshot)=>{
+        database.collection('deck').get().then((snapshot)=>{
             let arr = []
             snapshot.docs.map((doc) =>{
                 arr.push({ 
                     id: doc.id,
-                    name: doc.data().name,
-                    sex: doc.data().sex,
-                    breed: doc.data().breed,
-                    description: doc.data().description,
-                    type : doc.data().type
-
+                    name: doc.data().name
                 })
             });
             setDocuments(arr)
-            console.log("sex: ", documents);
         })
     }, [database])
     return(
@@ -41,14 +34,10 @@ export const Home = ()=>{
                 {
                     documents.map((document)=>{
                         return(
-                            <Card
-                                key={document.id}
-                                name={document.name}
-                                breed={document.breed}
-                                description={document.description} 
-                                sex={document.sex}
-                                type={document.type}
+                            <Item
+                                title={document.name}
                                 id={document.id}
+                                link={`/deck/${document.id}`}
                             />
                         )
                     })

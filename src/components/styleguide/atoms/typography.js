@@ -31,7 +31,6 @@ const header_3 = (color) =>`
     color: ${handleDefault(color,colors.text_onLight)};
     font-size: 20px;
     line-height: 120%;
-    text-transform: uppercase;
 
     @media (min-width:${breakpoints.mobile}) {
         font-size: 22px;
