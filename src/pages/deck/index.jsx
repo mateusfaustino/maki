@@ -33,6 +33,7 @@ const Container = styled.div`
 
 export const Deck = ()=>{
     const [documents, setDocuments] = useState([]);
+    const [deckName, setDeckName] = useState('');
     let { id } = useParams();
     useEffect(() => {
         database.collection(`deck/${id}/cards`).orderBy('word').get().then((snapshot)=>{
@@ -46,11 +47,17 @@ export const Deck = ()=>{
             });
             setDocuments(arr)
         })
+        database.collection(`deck`).get().then((snapshot)=>{
+            snapshot.docs.map((doc) =>{
+                if(doc.id==id)
+                    setDeckName(doc.data().name) 
+            });
+        })
     }, [database])
     return(
         <Container >
             <h1>
-                {id}
+                {deckName}
             </h1>
             <Link className='study' to={`/study/${id}`}>
                 <Button color='secondary'>Study deck</Button>

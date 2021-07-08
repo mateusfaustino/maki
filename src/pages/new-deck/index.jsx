@@ -19,7 +19,7 @@ export function NewDeck (props){
     return(
         <Container>
             <div className='title'>
-                New Card
+                New Deck
             </div>
             <Form/>
         </Container>

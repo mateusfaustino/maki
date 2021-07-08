@@ -5,6 +5,7 @@ import { Deck } from './pages/deck'
 import { Study } from './pages/study'
 import { NewCard } from './pages/new-card'
 import { NewDeck } from './pages/new-deck'
+import { Login } from './pages/login'
 import GlobalStyle from './components/styleguide/atoms/global'
 import {BrowserRouter,Route, Switch} from 'react-router-dom'
 import {AuthContextProvider} from './contexts/AuthContext'
@@ -21,7 +22,8 @@ function App() {
           <Route path='/deck/:id'  component={Deck}/>
           <Route path='/study/:id'  component={Study}/>
           <Route path='/new-card/:id'  component={NewCard}/>
-          <Route path='/new-deck/'  component={NewDeck}/>
+          <Route path='/new-deck'  component={NewDeck}/>
+          <Route path='/login'  component={Login}/>
         </Switch>
       </AuthContextProvider>
     </BrowserRouter>
