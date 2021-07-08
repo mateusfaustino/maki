@@ -1,4 +1,6 @@
 import styled from "styled-components"
+import { Fab } from '@material-ui/core';
+import {MdAdd} from 'react-icons/md'
 import { database} from '../../services/firebase'
 import Button from '../../components/styleguide/molecules/buttons' 
 import { useParams } from "react-router";
@@ -21,8 +23,12 @@ const Container = styled.div`
             width:100%;
 
         }
-
     } 
+    a.add{
+        position:fixed;
+        right:${spacing.margin};
+        bottom:32px;
+    }
 `
 
 export const Deck = ()=>{
@@ -63,7 +69,12 @@ export const Deck = ()=>{
                 })
             }
             </Showcase>
-            
+
+            <Link to={`/new-card/${id}`} className='add'>
+                <Fab color="primary" aria-label="add">
+                    <MdAdd />
+                </Fab>
+            </Link>
         </Container>
             
 
