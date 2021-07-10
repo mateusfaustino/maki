@@ -2,17 +2,19 @@ import styled from "styled-components"
 import {Showcase} from '../../components/this-project/showcase/showcase'
 import { ShowcaseItem as Item} from '../../components/this-project/showcase/item'
 import { database} from '../../services/firebase'
-import React,{useEffect, useState} from "react";
+import React,{useEffect, useState, useContext} from "react";
 import Spacing from '../../components/styleguide/atoms/spacing';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {MdAdd} from 'react-icons/md'
 import { Fab } from '@material-ui/core';
-
+import { AuthContext } from "../../contexts/AuthContext";
+import {Avatar} from './avatar'
 const spacing = new Spacing(7,'16px','10vw')
  
 const Container = styled.div`
     display:flex;
-    align-items:stretch;
+    flex-direction:column;
+    align-items:center;
     height:100vh;
     margin-top: 48px;
     a.add{
@@ -24,6 +26,9 @@ const Container = styled.div`
 
 export const Home = ()=>{
     const [documents, setDocuments] = useState([]);
+    const {user} = useContext(AuthContext)
+    const history = useHistory()
+    console.log("user",user);
     useEffect(() => {
         database.collection('deck').get().then((snapshot)=>{
             let arr = []
@@ -36,8 +41,10 @@ export const Home = ()=>{
             setDocuments(arr)
         })
     }, [database])
+    
     return(
         <Container>
+            <Avatar image={user?user.avatar:''} userName={user?user.name:''}/>
             <Showcase>
                 {
                     documents.map((document)=>{

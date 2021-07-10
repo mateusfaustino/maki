@@ -11,7 +11,9 @@ import {BrowserRouter,Route, Switch} from 'react-router-dom'
 import {AuthContextProvider} from './contexts/AuthContext'
 import Navbar from './components/styleguide/molecules/Header'
 
+export const AuthContext = createContext({}) 
 function App() {
+  const [user,setUser] = useState()
   return (
     <BrowserRouter>
       <GlobalStyle/>
